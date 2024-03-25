@@ -1,0 +1,473 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin:0;
+	padding:0;
+}
+
+
+
+
+/*--feature--*/
+
+#feature{
+	width:100%;
+	padding:70px 0;
+}
+
+.title-text{
+	text-align:center;
+	padding-bottom:70px;
+}
+
+.title-text p{
+	margin:auto;
+	font-size:20px;
+	color:#03C;
+	font-weight:bold;
+	position:relative;
+	z-index:1;
+	display:inline-block;
+}
+
+.title-text p::after{
+    content:'';
+	width:50px;
+	height:35px;
+	background:linear-gradient( #06F, #FFF);
+	position:absolute;
+	top:-20px;
+	left:0;
+	z-index:-1;
+	transform:rotate(10deg);
+	border-top-left-radius:35px;
+	border-bottom-right-radius:35px;
+}
+
+.title-text h1{
+	font-size:50px;
+}
+
+.feature-box{
+	width:80%;
+	margin:auto;
+	display:flex;
+	flex-wrap:wrap;
+	align-items:center;
+	text-align:center;
+}
+
+.features{
+	flex-basis:50%;
+}
+
+.features-img{
+	flex-basis:50%;
+	margin:auto;
+}
+
+.features-img img{
+	width:70%;
+	border-radius:10px;
+}
+
+.features h1{
+	text-align:left;
+	margin-bottom:10px;
+	font-weight:100;
+	color:#F09;
+}
+
+.features-description{
+	display:flex;
+	align-items:center;
+	margin-bottom:40px;
+}
+
+.feature-icon .fa{
+	width:50px;
+	height:50px;
+	font-size:30px;
+	line-height:50px;
+	border-radius:8px;
+	color:#F20079;
+	border:1px solid #F20079;
+}
+
+@media screen and (max-width: 770px){
+	.title-text h1{
+		font-size:35px;
+	}
+	
+	.features{
+		flex-basis:100%;
+	}
+	
+	.features-img{
+		flex-basis:100%;
+	}
+	
+	.features-img img{
+		width:100%;
+	}
+}
+
+
+/*--service---*/
+
+#service{
+	width:100%;
+	padding:70px 0;
+	background:#FCC;
+}
+
+.service-box{
+	width:80%;
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-around;
+	margin:auto;
+}
+
+.single-service{
+	flex-basis:48%;
+	text-align:center;
+	border-radius:7px;
+	margin-bottom:20px;
+	color:#FFF;
+	position:relative;
+}
+
+.single-service img{
+	width:100%;
+	border-radius:7px;
+}
+
+.overlay{
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	border-radius:7px;
+	cursor:pointer;
+	background:linear-gradient(rgba(0,0,0,0.3), #F99);
+	opacity:0;
+	transition:1s;
+}
+
+.single-service:hover .overlay{
+	opacity:1;
+}
+
+.service-desc{
+	width:80%;
+	position:absolute;
+	bottom:0;
+	left:50%;
+	opacity:0;
+	transform:translateX(-50%);
+	transition:1s;
+}
+
+hr{
+	background:#FFF;
+	height:2px;
+	border:0;
+	margin:15px auto;
+	width:60%;
+}
+
+.service-desc p{
+	font-size:14px;
+}
+
+.single-service:hover .service-desc{
+	bottom:40%;
+	opacity:1;
+}
+
+
+
+
+@media screen and (max-width: 770px){
+	.single-service{
+		flex-basis:100%;
+		margin-bottom:30px;
+	}
+	
+	.service-desc p{
+		font-size:12px;
+	}
+	
+	hr{
+		margin:5px auto;
+	}
+}
+
+
+/*--testimonial---*/
+
+#testimonial{
+	width:100%;
+	padding:70px 0;
+}
+
+.testimonial-row{
+	width:80%;
+	margin:auto;
+	display:flex;
+	justify-content:space-between;
+	align-items:flex-start;
+	flex-wrap:wrap;
+}
+
+.testimonial-col{
+	flex-basis:28%;
+	padding:10px;
+	margin-bottom:30px;
+	border-radius:5px;
+	box-shadow:0 10px 20px 3px #FF9999;
+	cursor:pointer;
+	transition:transform .5s;
+}
+
+.testimonial-col p{
+	font-size:14px;
+}
+
+.user{
+	display:flex;
+	align-items:center;
+	margin:20px 0;
+}
+
+.user img{
+	width:40px;
+	margin-right:20px;
+	border-radius:3px;
+}
+
+.user-info .fa{
+	margin-left:10px;
+	color:#C06;
+	font-size:20px;
+}
+
+.user-info small{
+	color:#C39;
+}
+
+.testimonial-col:hover{
+	transform:translateY(-7px);    /*---the boxes will go up once the cursor hit on it---*/
+}
+
+@media screen and (max-width: 770px){
+	
+	.testimonial-col{
+		flex-basis:100%;
+	}
+}
+
+
+.btn-group button {
+  background-color: #ff4242e1; /* Green background */
+  border: 1px solid  #ff8686e1; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #ff6a56;
+}
+/*--footer--*/
+
+#footer{
+	padding:100px 0 20px;
+	background:#FCC;
+	position:relative;
+}
+
+.footer-row{
+	width:80%;
+	margin:0 auto;
+	display:flex;
+	justify-content:space-between;
+	flex-wrap:wrap;
+}
+
+.footer-left, .footer-right{
+	flex-basis:45%;
+	padding:10px;
+	margin-bottom:20px;
+}
+
+.footer-right{
+	text-align:right;
+}
+
+.footer-row h1{
+	margin:10px 0;
+}
+
+.footer-row p{
+	line-height:35px;
+}
+
+.footer-left .fa, .footer-right .fa{
+	font-size:20px;
+	color:#C06;
+	margin:10px;
+}
+
+.footer-img{
+	max-width:370px;
+	opacity:0.1;
+	position:absolute;
+	left:50%;
+	top:35%;
+	transform:translate(-50%,-50%);
+}
+
+.social-links{
+	text-align:center;
+}
+
+.social-links .fa{
+	height:40px;
+	width:40px;
+	font-size:20px;
+	line-height:40px;
+	border:1px solid #F20079;
+	margin:40px 5px 0;
+	color:#C06;
+	cursor:pointer;
+	transition:.5s;
+}
+
+.social-links .fa:hover{
+	background:#C06;
+	color:#FFF;
+	transform:translateY(-7px);
+}
+
+.social-links p{
+	font-size:12px;
+	margin-top:20px;
+}
+
+
+@media screen and (max-width: 770px){
+	.footer-left, .footer-right{
+		flex-basis:100%;
+		font-size:14px;
+	}
+	
+	.footer-img{
+		top:25%;
+	}
+}
+
+/* Style for Feature Box */
+.feature-box {
+    background-color: #f5f5f5;
+    padding: 50px 20px;
+    text-align: center;
+	justify-content: center;
+}
+
+/* Style for Individual Features */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Style for Checkout Input */
+.checkout__input {
+    width: 100%;
+    max-width: 500px; /* Set a maximum width for better responsiveness */
+    margin: 0 auto; /* Center the input fields */
+    margin-bottom: 20px;
+}
+
+.checkout__input p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.checkout__input input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Style for the Book Appointment Button */
+.checkout__button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+}
+
+.site-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e72424;
+    color: #fff;
+}
+
+.site-btn:hover {
+    background-color: #f98d8dcb;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #5cbfda77;
+    padding: 12px; /* Increase padding for better cell width */
+    text-align: center;
+    width: 300px; /* Set a specific width for the cells */
+}
+
+th {
+    background-color: #4399bb;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #cce5ff;
+}

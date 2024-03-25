@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/Dell/Desktop/frontend/UserInterface/checkout.html -->
+<html lang="zxx"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="style.css" />
+    <style>
+
+        
+body {
+  font-family: Arial;
+  padding: 10px;
+ background-image:url(img1.avif);
+}
+
+/* Header/Blog Title */
+.header {
+  text-align: center;
+
+
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 100%;
+}
+
+
+/* Clear floats after the columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 1px;
+  text-align: center;
+  background:  #333;
+  color: white;
+  margin-top: 1px;
+}
+
+
+        
+        </style>
+<script>
+    // Check if the user is logged in
+    function checkLogin() {
+        var username = sessionStorage.getItem('userName');
+        if (!username) {
+            window.location.href = '/.html'; // Redirect to login page
+        }
+    }
+</script>
+
+</head><body style="background-color:white;">
+
+    <div class="header">
+      <h1>ABC Laboratories</h1>
+     
+    </div>
+  
+    <div class="navbar">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Services
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="shop.html">My Appointments</a>
+          <a href="booking.ht"> My Bookings</a>
+        </div>
+      </div> 
+      <a href="login.html" style="float:right">Signup</a>
+    </div>
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+            </div>
+           <center>
+            <div class="feature-box">
+        	<div class="features">
+                                <div class="checkout__input">
+                                    <p>Patient Name<span>*</span>
+                                    <input type="text" id="input1" placeholder="Enter Customer Name" required=""></p>
+                                </div>
+                                
+                                <div class="checkout__input">
+                                    <p>Recommended doctor Name<span>*</span>
+                                    <input type="text" id="input2" placeholder="Enter doctor Name" required=""></p>
+                                </div>
+                                
+                        		<div class="checkout__input">
+                            		<p>Book Date<span>*</span>
+                            		<input type="date" id="input3" required="" min="2024-03-19"></p>
+                        		</div>
+                                
+                        		<div class="checkout__input">
+                            		<p>Time<span>*</span>
+                            		<input type="text" placeholder="Enter Appointment Time" class="checkout__input__add" id="input4" required=""></p>
+                        		</div>
+                                
+                        		<div class="checkout__input">
+                            		<p>Contact Number<span>*</span>
+                            		<input type="text" id="input5" placeholder="Enter Your Contact Number" required=""></p>
+                        		</div>
+                                
+                        		<div class="checkout__input">
+                            		<button onclick="save()" class="site-btn btn btn-outline-success">Book Appointment</button>
+                        		</div>
+                
+            </div>
+            </div></center>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+
+    <script>
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var c_name = urlParams.get('name');
+
+            if (c_name) {
+                // Store the name in session storage
+                sessionStorage.setItem('name', c_name);
+                console.log(c_name);
+
+                // Populate the input field with the c_name value
+                var nameInput = document.getElementById('input2');
+                if (nameInput) {
+                    nameInput.value = c_name;
+                }
+            }
+
+            const storedUserName = sessionStorage.getItem("userName");
+
+            // Check if the stored username exists
+            if (storedUserName) {
+                // Set the stored username as the value of the input field
+                document.getElementById("input1").value = storedUserName;
+            }
+        }
+
+
+        const dateInput = document.getElementById('input3');
+
+        // Function to set the minimum date to today's date
+        function setMinDate() {
+            const today = new Date();
+            const day = today.getDate().toString().padStart(2, '0');
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const year = today.getFullYear();
+            const minDate = `${year}-${month}-${day}`;
+            dateInput.setAttribute('min', minDate);
+        }
+
+        // Call the function to set the minimum date initially
+        setMinDate();
+
+        // Add an event listener to update the minimum date if the input is focused
+        dateInput.addEventListener('focus', setMinDate);
+
+
+
+        function save() {
+            let u_name = $("#input1").val();
+            let c_name = $("#input2").val();
+            let book_date = $("#input3").val();
+            let time = $("#input4").val();
+            let contact = $("#input5").val();
+
+            $.ajax({
+                method: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/api/v1/appoinment/saveappoinment",
+                async: true,
+                data: JSON.stringify({
+                    u_name: u_name,
+                    c_name: c_name,
+                    book_date: book_date,
+                    time: time,
+                    contact: contact,
+                }),
+                success: function (data) {
+                    alert("Appointment Added Successfully");
+                    window.location.href = '?refresh=true';
+                },
+                error: function (xhr, exception) {
+                    alert("Error");
+                },
+            });
+        }
+    </script>
+
+
+
+    <!-- Js Plugins -->
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/jquery-3.3.1.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/bootstrap.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/jquery.nice-select.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/jquery-ui.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/jquery.slicknav.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/mixitup.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/owl.carousel.min.js"></script>
+    <script src="file:///C:/Users/Dell/Desktop/frontend/UserInterface/js/main.js"></script>
+
+ 
+    <div class="footer">
+        <p>© ABC HEALTH PVT LTD. ALL RIGHTS RESERVED.
+    
+          Technology Partner   Mediwave (Pvt) Ltd. 
+        <br>0117990989 for Agent Assistance</p>
+    
+    </div>
+
+
+</body></html>

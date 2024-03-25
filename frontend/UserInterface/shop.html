@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+     
+body {
+  font-family: Arial;
+  padding: 10px;
+ background-image:url(img1.avif);
+}
+
+/* Header/Blog Title */
+.header {
+  text-align: center;
+
+
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 100%;
+}
+
+
+/* Clear floats after the columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 1px;
+  text-align: center;
+  background:  #333;
+  color: white;
+  margin-top: 1px;
+}
+
+
+
+</style>
+</head>
+
+
+<body style="background-color:white;">
+
+    <div class="header">
+      <h1>ABC Laboratories</h1>
+     
+    </div>
+  
+    <div class="navbar">
+      <a href="index.html">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">Services
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="shop.html">My Appointments</a>
+          <a href="booking.html"> My Bookings</a>
+        </div>
+      </div> 
+      <a href="login.html" style="float:right">Signup</a>
+    </div>
+    
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section bg-dark" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                   <center>    <h2> Search for bookings </h2></center> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+             <div class="feature-box">
+               <center> <div class="features">
+                
+                                    <div class="checkout__input">
+                                        <h2>Filter By</h2></br>
+                                    </div>
+                                    
+                                    <div class="checkout__input">
+                                        <p>Test Type<span>*</span>
+                                        <input type="text" id="input1" placeholder="Test Specialization" required></p></br>
+                                    </div>
+                                    
+                                    <div class="checkout__input">
+                                        <h2>Or</h2></br>
+                                    </div>
+                                    
+                                    <div class="checkout__input">
+                                        <p>Appointment Date<span>*</span>
+                                        <input type="text" id="input2" placeholder="Enter Date" required></p>
+                                    </div>
+                                </center>
+                </div>
+                
+    </section>
+
+    <script>
+        const productList = document.getElementById("productList");
+        const startTimeFilter = document.getElementById("startTimeFilter");
+        const endTimeFilter = document.getElementById("endTimeFilter");
+
+        // Function to fetch and display products
+        const fetchProducts = () => {
+            // Fetch product data from the API
+            fetch("http://localhost:8080/api/v1/consult/getconsult")
+                .then((response) => response.json())
+                .then((products) => {
+                    // Clear the existing product list
+                    productList.innerHTML = "";
+
+                    // Loop through products and generate HTML content
+                    products.forEach((product) => {
+                        const productItem = document.createElement("div");
+                        productItem.className = "col-lg-4 col-md-6 col-sm-6";
+                        productItem.innerHTML = `
+                        <div class="product__item">
+                        <div class="product__item__pic set-bg">
+                            <img src="img/user.jpg" alt="">
+                            <ul class="product__hover">
+                            </ul>
+                        </div>
+                        <div class="product__item__text" style="margin-top:10px;">
+                            <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                            <div style="text-align: center; font-weight: bold; margin-bottom: -50px;">
+                                <p style="text-align: center; font-weight: 600; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+                            </div>
+                            <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                        </div>
+                    </div>`;
+
+                        productList.appendChild(productItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching product data:", error);
+                });
+        };
+
+
+        // Function to fetch and display filtered products
+        const fetchFilteredProducts = (startTime) => {
+            // Fetch filtered product data from the API
+            fetch(`http://localhost:8080/api/v1/consult/filter-by-start-time`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    start_time: startTime,
+
+                }),
+            })
+                .then((response) => response.json())
+                .then((filteredProducts) => {
+                    // Clear the existing product list
+                    productList.innerHTML = "";
+                    if (filteredProducts.length === 0) {
+                        // Create an error message element
+                        const errorMessage = document.createElement("div");
+                        errorMessage.className = "col-lg-9 text-danger text-bold";
+                        errorMessage.textContent = "Consultant Not Found.";
+
+                        productList.appendChild(errorMessage);
+                    } else {
+                        // Loop through filtered products and generate HTML content
+                        filteredProducts.forEach((product) => {
+                            const productItem = document.createElement("div");
+                            productItem.className = "col-lg-4 col-md-6 col-sm-6";
+                        productItem.innerHTML = `
+                        <div class="product__item">
+                        <div class="product__item__pic set-bg">
+                            <img src="img/user.jpg" alt="">
+                            <ul class="product__hover">
+                            </ul>
+                        </div>
+                        <div class="product__item__text" style="margin-top:10px;">
+                            <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                            <div style="text-align: center; font-weight: bold; margin-bottom: -50px;">
+                                <p style="text-align: center; font-weight: 600; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+                            </div>
+                            <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                        </div>
+                    </div>`;
+
+                            productList.appendChild(productItem);
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching filtered product data:", error);
+                });
+        };
+
+
+        // Function to fetch and display filtered products
+        const fetchFilteredProductsend = (endTime) => {
+            // Fetch filtered product data from the API
+            fetch(`http://localhost:8080/api/v1/consult/filter-by-end-time`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    end_time: endTime,
+
+                }),
+            })
+                .then((response) => response.json())
+                .then((filteredProducts) => {
+                    // Clear the existing product list
+                    productList.innerHTML = "";
+                    if (filteredProducts.length === 0) {
+                        // Create an error message element
+                        const errorMessage = document.createElement("div");
+                        errorMessage.className = "col-lg-9 text-danger text-bold";
+                        errorMessage.textContent = "Consultant Not Found.";
+
+                        productList.appendChild(errorMessage);
+                    } else {
+                        // Loop through filtered products and generate HTML content
+                        filteredProducts.forEach((product) => {
+                            const productItem = document.createElement("div");
+                            productItem.className = "col-lg-4 col-md-6";
+                            productItem.innerHTML = `
+                        <div class="product__item">
+                                <div class="product__item__pic set-bg">
+                                    <img src="img/user.jpg" alt="">
+                                    <ul class="product__hover">
+                                    </ul>
+                                </div>
+                                <div class="product__item__text" style="margin-top:10px;">
+                    <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                    <div style="text-align: center; font-weight: 500; margin-bottom: -50px;">
+                        <p style="text-align: center; font-weight: 600; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+        </div>
+        <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                            </div>
+                        `;
+
+                            productList.appendChild(productItem);
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching filtered product data:", error);
+                });
+        };
+
+
+
+
+        // Event listener for input changes in the filter fields
+        startTimeFilter.addEventListener("input", () => {
+            const startTime = startTimeFilter.value;
+            const endTime = endTimeFilter.value;
+            if (startTime === "") {
+                fetchProducts();
+            } else {
+                fetchFilteredProducts(startTime);
+            }
+        });
+
+        endTimeFilter.addEventListener("input", () => {
+            const startTime = startTimeFilter.value;
+            const endTime = endTimeFilter.value;
+            if (endTime === "") {
+                fetchProducts();
+            } else {
+                fetchFilteredProductsend(endTime);
+            }
+        });
+
+        // Initial fetch to load all products by default
+        fetchProducts();
+
+
+        // Function to determine the appropriate link based on user login status
+        const getUserLink = (product) => {
+            // Replace this with your actual logic to check user session or authentication
+            var username = sessionStorage.getItem('userName');
+            if (!username) {
+                window.location.href = 'login.html'; // Redirect to login page
+            } else {
+                return `checkout.html?name=${encodeURIComponent(product.name)}`;
+            }
+        };
+    </script>
+ 
+<br> 
+<br> 
+<br> 
+<br> 
+<br> 
+<br> 
+<br>
+<div class="footer" >
+    <p>© ABC HEALTH PVT LTD. ALL RIGHTS RESERVED.
+
+      Technology Partner   Mediwave (Pvt) Ltd. 
+    <br>0117990989 for Agent Assistance</p>
+
+</div>
+
+</body>
+
+</html>
